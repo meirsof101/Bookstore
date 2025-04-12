@@ -1,6 +1,6 @@
 -- Create the database
 CREATE DATABASE BookstoreDB;
-USE BookStoreDB;
+USE BookstoreDB;
 
 -- Table: author
 CREATE TABLE author (
