@@ -58,13 +58,6 @@ INSERT INTO book (title, publisher_id, language_id) VALUES
 ('Adventures in Kisumu', 4, 4),        -- Luo book by Storymoja
 ('Rift Valley Riders', 5, 5);          -- Kalenjin book by Oxford Kenya
 
-INSERT INTO book (title, publisher_id, language_id) VALUES
-('Shujaa wa Nairobi', 1, 1),           -- Swahili book by Phoenix Publishers
-('The Matatu Chronicles', 2, 2),       -- English book by Longhorn Publishers
-('Mugithi Melodies', 3, 3),            -- Kikuyu book by East African Publishers
-('Adventures in Kisumu', 4, 4),        -- Luo book by Storymoja
-('Rift Valley Riders', 5, 5);          -- Kalenjin book by Oxford Kenya
-
 -- Table: book_author (many-to-many)
 CREATE TABLE book_author (
     book_id INT,
@@ -151,17 +144,38 @@ CREATE TABLE customer_address (
     FOREIGN KEY (status_id) REFERENCES address_status(status_id)
 );
 
+INSERT INTO customer_address (customer_id, address_id, status_id) VALUES
+(1, 1, 1),  -- Wanjiku Kamau, Kenyatta Avenue, Current
+(2, 2, 4),  -- Brian Otieno, Moi Avenue, Shipping
+(3, 3, 3),  -- Amina Mohamed, Kisumu-Busia Road, Billing
+(4, 4, 5),  -- Peter Njoroge, Kangundo Road, Temporary
+(5, 5, 2);  -- Joyce Wambui, Oginga Odinga Street, Old
+
 -- Table: shipping_method
 CREATE TABLE shipping_method (
     method_id INT AUTO_INCREMENT PRIMARY KEY,
     method_name VARCHAR(100)
 );
 
+INSERT INTO shipping_method (method_name) VALUES
+('G4S Courier'),
+('Posta Kenya'),
+('Jumia Express'),
+('Motorbike Delivery'),
+('Pick-up from Store');
+
 -- Table: order_status
 CREATE TABLE order_status (
     status_id INT AUTO_INCREMENT PRIMARY KEY,
     status_name VARCHAR(50)
 );
+
+INSERT INTO order_status (status_name) VALUES
+('Pending'),
+('Processing'),
+('Shipped'),
+('Delivered'),
+('Cancelled');
 
 -- Table: cust_order
 CREATE TABLE cust_order (
@@ -175,6 +189,13 @@ CREATE TABLE cust_order (
     FOREIGN KEY (status_id) REFERENCES order_status(status_id)
 );
 
+INSERT INTO cust_order (customer_id, order_date, shipping_method_id, status_id) VALUES
+(1, '2025-04-01', 1, 2),
+(2, '2025-04-02', 2, 3),
+(3, '2025-04-03', 3, 4),
+(4, '2025-04-04', 4, 1),
+(5, '2025-04-05', 5, 5);
+
 -- Table: order_line
 CREATE TABLE order_line (
     order_id INT,
@@ -185,6 +206,13 @@ CREATE TABLE order_line (
     FOREIGN KEY (book_id) REFERENCES book(book_id)
 );
 
+INSERT INTO order_line (order_id, book_id, quantity) VALUES
+(1, 1, 2),
+(2, 2, 1),
+(3, 3, 3),
+(4, 4, 1),
+(5, 5, 2);
+
 -- Table: order_history
 CREATE TABLE order_history (
     history_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -194,3 +222,10 @@ CREATE TABLE order_history (
     FOREIGN KEY (order_id) REFERENCES cust_order(order_id),
     FOREIGN KEY (status_id) REFERENCES order_status(status_id)
 );
+
+INSERT INTO order_history (order_id, status_id, update_time) VALUES
+(1, 2, '2025-04-01 10:00:00'),
+(2, 3, '2025-04-02 11:00:00'),
+(3, 4, '2025-04-03 12:00:00'),
+(4, 1, '2025-04-04 13:00:00'),
+(5, 5, '2025-04-05 14:00:00');
