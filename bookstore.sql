@@ -229,3 +229,19 @@ INSERT INTO order_history (order_id, status_id, update_time) VALUES
 (3, 4, '2025-04-03 12:00:00'),
 (4, 1, '2025-04-04 13:00:00'),
 (5, 5, '2025-04-05 14:00:00');
+
+-- Admin user (full access)
+CREATE USER 'admin_user'@'localhost' IDENTIFIED BY 'AdminPass123!';
+GRANT ALL PRIVILEGES ON BookstoreDB.* TO 'admin_user'@'localhost';
+
+-- Staff user (can manage books/orders, but no DROP or full admin)
+CREATE USER 'staff_user'@'localhost' IDENTIFIED BY 'StaffPass123!';
+GRANT SELECT, INSERT, UPDATE, DELETE ON BookstoreDB.book TO 'staff_user'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON BookstoreDB.cust_order TO 'staff_user'@'localhost';
+GRANT SELECT ON BookstoreDB.customer TO 'staff_user'@'localhost';
+
+-- Read-only customer user (can view books and their own orders)
+CREATE USER 'customer_user'@'localhost' IDENTIFIED BY 'CustomerPass123!';
+GRANT SELECT ON BookstoreDB.book TO 'customer_user'@'localhost';
+GRANT SELECT ON BookstoreDB.book_author TO 'customer_user'@'localhost';
+GRANT SELECT ON BookstoreDB.cust_order TO 'customer_user'@'localhost';
