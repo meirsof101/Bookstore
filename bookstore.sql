@@ -247,3 +247,13 @@ GRANT SELECT ON BookstoreDB.book_author TO 'customer_user'@'localhost';
 GRANT SELECT ON BookstoreDB.cust_order TO 'customer_user'@'localhost';
 
 REVOKE DELETE ON BookstoreDB.book FROM 'staff_user'@'localhost'; -- Staff cannot delete books
+
+-- Querying for Insights
+
+SELECT b.title, SUM(ol.quantity) AS total_ordered 
+FROM order_line ol
+JOIN book b ON ol.book_id = b.book_id
+GROUP BY ol.book_id
+ORDER BY total_ordered DESC
+LIMIT 3; -- This query retrieves the top 3 most ordered books along with their total ordered quantity.
+
