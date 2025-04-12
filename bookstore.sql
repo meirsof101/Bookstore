@@ -261,3 +261,10 @@ SELECT bl.language_name, COUNT(*) AS book_count
 FROM book b
 JOIN book_language bl ON b.language_id = bl.language_id
 GROUP BY bl.language_name;
+
+-- Order Summary by Customer
+SELECT c.first_name, c.last_name, COUNT(o.order_id) AS total_orders
+FROM customer c
+JOIN cust_order o ON c.customer_id = o.customer_id
+GROUP BY c.customer_id;
+
