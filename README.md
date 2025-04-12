@@ -51,3 +51,15 @@ Design and build a relational database for a bookstore to efficiently store and 
 * `shipping_method`
 * `order_history`
 * `order_status`
+
+# Group Members
+1. Fidel Mwaro Ngoka
+2. Gabriella Wekesa
+3. Sospeter Bisera
+4. Stanley Chege Thuita
+
+
+
+
+
+
