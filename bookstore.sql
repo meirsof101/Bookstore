@@ -268,3 +268,10 @@ FROM customer c
 JOIN cust_order o ON c.customer_id = o.customer_id
 GROUP BY c.customer_id;
 
+-- Most Popular Authors (by books sold)
+SELECT a.name, SUM(ol.quantity) AS total_books_sold
+FROM order_line ol
+JOIN book_author ba ON ol.book_id = ba.book_id
+JOIN author a ON ba.author_id = a.author_id
+GROUP BY a.author_id
+ORDER BY total_books_sold DESC;
