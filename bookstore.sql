@@ -8,17 +8,38 @@ CREATE TABLE author (
     name VARCHAR(100) NOT NULL
 );
 
+INSERT INTO author (name) VALUES
+('Kamau Mwangi'),
+('Achieng Odhiambo'),
+('Wanjiku Cheruiyot'),
+('Barasa Simiyu'),
+('Njenga Mutiso');
+
 -- Table: book_language
 CREATE TABLE book_language (
     language_id INT AUTO_INCREMENT PRIMARY KEY,
     language_name VARCHAR(50)
 );
 
+INSERT INTO book_language (language_name) VALUES
+('Swahili'),
+('English'),
+('Kikuyu'),
+('Luo'),
+('Kalenjin');
+
 -- Table: publisher
 CREATE TABLE publisher (
     publisher_id INT AUTO_INCREMENT PRIMARY KEY,
     publisher_name VARCHAR(100)
 );
+
+INSERT INTO publisher (publisher_name) VALUES
+('Phoenix Publishers'),
+('Longhorn Publishers'),
+('East African Educational Publishers'),
+('Storymoja Africa'),
+('Oxford Kenya');
 
 -- Table: book
 CREATE TABLE book (
@@ -30,6 +51,20 @@ CREATE TABLE book (
     FOREIGN KEY (language_id) REFERENCES book_language(language_id)
 );
 
+INSERT INTO book (title, publisher_id, language_id) VALUES
+('Shujaa wa Nairobi', 1, 1),           -- Swahili book by Phoenix Publishers
+('The Matatu Chronicles', 2, 2),       -- English book by Longhorn Publishers
+('Mugithi Melodies', 3, 3),            -- Kikuyu book by East African Publishers
+('Adventures in Kisumu', 4, 4),        -- Luo book by Storymoja
+('Rift Valley Riders', 5, 5);          -- Kalenjin book by Oxford Kenya
+
+INSERT INTO book (title, publisher_id, language_id) VALUES
+('Shujaa wa Nairobi', 1, 1),           -- Swahili book by Phoenix Publishers
+('The Matatu Chronicles', 2, 2),       -- English book by Longhorn Publishers
+('Mugithi Melodies', 3, 3),            -- Kikuyu book by East African Publishers
+('Adventures in Kisumu', 4, 4),        -- Luo book by Storymoja
+('Rift Valley Riders', 5, 5);          -- Kalenjin book by Oxford Kenya
+
 -- Table: book_author (many-to-many)
 CREATE TABLE book_author (
     book_id INT,
@@ -39,11 +74,26 @@ CREATE TABLE book_author (
     FOREIGN KEY (author_id) REFERENCES author(author_id)
 );
 
+INSERT INTO book_author (book_id, author_id) VALUES
+(1, 1), -- Shujaa wa Nairobi by Wanjiru Njeri
+(2, 2), -- The Matatu Chronicles by Otieno Juma
+(3, 3), -- Mugithi Melodies by Kiptoo Langat
+(4, 4), -- Adventures in Kisumu by Wambui Mwangi
+(5, 5); -- Rift Valley Riders by Hassan Abdi
+
 -- Table: country
 CREATE TABLE country (
     country_id INT AUTO_INCREMENT PRIMARY KEY,
     country_name VARCHAR(100)
 );
+
+INSERT INTO country (country_name) VALUES
+('Kenya'),
+('Uganda'),
+('Tanzania'),
+('Rwanda'),
+('South Sudan');
+
 
 -- Table: address
 CREATE TABLE address (
@@ -55,11 +105,25 @@ CREATE TABLE address (
     FOREIGN KEY (country_id) REFERENCES country(country_id)
 );
 
+INSERT INTO address (street, city, zip_code, country_id) VALUES
+('Kenyatta Avenue', 'Nairobi', '00100', 1),
+('Moi Avenue', 'Mombasa', '80100', 1),
+('Kisumu-Busia Road', 'Kisumu', '40100', 1),
+('Kangundo Road', 'Machakos', '90100', 1),
+('Oginga Odinga Street', 'Eldoret', '30100', 1);
+
 -- Table: address_status
 CREATE TABLE address_status (
     status_id INT AUTO_INCREMENT PRIMARY KEY,
     status_name VARCHAR(50)
 );
+
+INSERT INTO address_status (status_name) VALUES
+('Current'),
+('Old'),
+('Billing'),
+('Shipping'),
+('Temporary');
 
 -- Table: customer
 CREATE TABLE customer (
@@ -68,6 +132,13 @@ CREATE TABLE customer (
     last_name VARCHAR(100),
     email VARCHAR(100)
 );
+
+INSERT INTO customer (first_name, last_name, email) VALUES
+('Wanjiku', 'Kamau', 'wanjiku.kamau@example.com'),
+('Brian', 'Otieno', 'brian.otieno@example.com'),
+('Amina', 'Mohamed', 'amina.mohamed@example.com'),
+('Peter', 'Njoroge', 'peter.njoroge@example.com'),
+('Joyce', 'Wambui', 'joyce.wambui@example.com');
 
 -- Table: customer_address
 CREATE TABLE customer_address (
