@@ -245,3 +245,5 @@ CREATE USER 'customer_user'@'localhost' IDENTIFIED BY 'CustomerPass123!';
 GRANT SELECT ON BookstoreDB.book TO 'customer_user'@'localhost';
 GRANT SELECT ON BookstoreDB.book_author TO 'customer_user'@'localhost';
 GRANT SELECT ON BookstoreDB.cust_order TO 'customer_user'@'localhost';
+
+REVOKE DELETE ON BookstoreDB.book FROM 'staff_user'@'localhost'; -- Staff cannot delete books
