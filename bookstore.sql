@@ -239,6 +239,11 @@ CREATE USER 'staff_user'@'localhost' IDENTIFIED BY 'StaffPass123!';
 GRANT SELECT, INSERT, UPDATE, DELETE ON BookstoreDB.book TO 'staff_user'@'localhost';
 GRANT SELECT, INSERT, UPDATE, DELETE ON BookstoreDB.cust_order TO 'staff_user'@'localhost';
 GRANT SELECT ON BookstoreDB.customer TO 'staff_user'@'localhost';
+GRANT SELECT ON BookstoreDB.order_line TO 'staff_user'@'localhost';
+GRANT SELECT ON BookstoreDB.order_history TO 'staff_user'@'localhost';
+GRANT SELECT ON BookstoreDB.book_author TO 'staff_user'@'localhost';
+GRANT SELECT, INSERT ON BookstoreDB.order_status TO 'staff_user'@'localhost';
+GRANT SELECT, INSERT ON BookstoreDB.shipping_method TO 'staff_user'@'localhost';
 
 -- Read-only customer user (can view books and their own orders)
 CREATE USER 'customer_user'@'localhost' IDENTIFIED BY 'CustomerPass123!';
@@ -246,7 +251,11 @@ GRANT SELECT ON BookstoreDB.book TO 'customer_user'@'localhost';
 GRANT SELECT ON BookstoreDB.book_author TO 'customer_user'@'localhost';
 GRANT SELECT ON BookstoreDB.cust_order TO 'customer_user'@'localhost';
 
-REVOKE DELETE ON BookstoreDB.book FROM 'staff_user'@'localhost'; -- Staff cannot delete books
+-- Staff cannot delete books
+REVOKE DELETE ON BookstoreDB.book FROM 'staff_user'@'localhost'; 
+
+-- Applying Priveleges
+FLUSH PRIVILEGES;
 
 -- Querying for Insights
 SELECT b.title, SUM(ol.quantity) AS total_ordered 
